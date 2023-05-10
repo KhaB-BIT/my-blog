@@ -1,22 +1,28 @@
-import { doc, updateDoc } from "firebase/firestore"
+// import { doc, updateDoc } from "firebase/firestore"
 import { Button } from "primereact/button"
 import { Dialog } from "primereact/dialog"
 import { Editor } from "primereact/editor"
 import { InputNumber } from "primereact/inputnumber"
 import { InputText } from "primereact/inputtext"
 import React, { useEffect, useState } from "react"
-import { db } from "../firebase_setup/firebase"
+import { doc, updateDoc } from "firebase/firestore"
+import { db } from "../../firebase_setup/firebase"
 
 const ModalUpdate = ({
     openModelUpdate,
     setOpenModalUpdate,
     data,
     showUpdateSuccess,
+    activeIndex,
 }) => {
-    const [lesson, setLesson] = useState({ ...data })
+    const [titleUpdate, setTitleUpdate] = useState(data?.title)
+    const [contentUpdate, setContentUpdate] = useState(data?.content)
+    const [orderUpdate, setOrderUpdate] = useState(data?.order)
 
     useEffect(() => {
-        setLesson({ ...data })
+        setTitleUpdate(data?.title)
+        setContentUpdate(data?.content)
+        setOrderUpdate(data?.order)
     }, [data])
 
     const footerContent = (
@@ -37,7 +43,18 @@ const ModalUpdate = ({
     )
 
     const handleUpdate = () => {
-        const docRef = doc(db, "source_java", lesson.id)
+        const docRef = doc(
+            db,
+            activeIndex ? "source_springboot" : "source_java",
+            data.id
+        )
+
+        const lesson = {
+            id: data.id,
+            title: titleUpdate,
+            content: contentUpdate,
+            order: orderUpdate,
+        }
 
         updateDoc(docRef, lesson)
             .then((docRef) => {
@@ -59,7 +76,7 @@ const ModalUpdate = ({
                 footer={footerContent}
             >
                 <InputText
-                    value={lesson.title}
+                    value={titleUpdate}
                     type="text"
                     className="p-inputtext-sm"
                     placeholder="Enter title for lesson"
@@ -68,26 +85,20 @@ const ModalUpdate = ({
                         marginBottom: "10px",
                         marginRight: "10px",
                     }}
-                    onChange={(e) =>
-                        setLesson({ ...lesson, title: e.target.value })
-                    }
+                    onChange={(e) => setTitleUpdate(e.target.value)}
                 />
                 <InputNumber
                     inputId="minmax"
                     className="p-inputtext-sm"
-                    value={lesson.order}
-                    onValueChange={(e) =>
-                        setLesson({ ...lesson, order: e.target.value })
-                    }
-                    min={1}
+                    value={orderUpdate}
+                    onValueChange={(e) => setOrderUpdate(e.target.value)}
+                    min={0}
                     max={100}
                     placeholder="Enter order"
                 />
                 <Editor
-                    value={lesson.content}
-                    onTextChange={(e) =>
-                        setLesson({ ...lesson, content: e.htmlValue })
-                    }
+                    value={contentUpdate}
+                    onTextChange={(e) => setContentUpdate(e.htmlValue)}
                     style={{ height: "600px" }}
                 />
             </Dialog>

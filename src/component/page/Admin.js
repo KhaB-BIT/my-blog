@@ -1,22 +1,22 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef, useMemo } from "react"
 import { Button } from "primereact/button"
 import { TabView, TabPanel } from "primereact/tabview"
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore"
-import { db } from "../firebase_setup/firebase"
+import { db } from "../../firebase_setup/firebase"
 import { DataTable } from "primereact/datatable"
 import { Column } from "primereact/column"
 import { Skeleton } from "primereact/skeleton"
-import ModalUpdate from "./ModalUpdate"
-import ModalCreate from "./ModalCreate"
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 import { Toast } from "primereact/toast"
+import ModalUpdate from "../modal/ModalUpdate"
+import ModalCreate from "../modal/ModalCreate"
 
 const Admin = () => {
     const [data, setData] = useState()
     const [openModelUpdate, setOpenModalUpdate] = useState(false)
     const [openModelCreate, setOpenModalCreate] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(0) // 0: source_javap; 1: source_springboot
     const [selected, setSelected] = useState()
     const toast = useRef(null)
 
@@ -34,7 +34,10 @@ const Admin = () => {
                     ...doc.data(),
                     id: doc.id,
                 }))
-                setData(newData)
+                const sortData = newData.sort((l1, l2) =>
+                    l1.order > l2.order ? 1 : l1.order < l2.order ? -1 : 0
+                )
+                setData(sortData)
                 setLoading(false)
             })
         }
@@ -43,7 +46,13 @@ const Admin = () => {
 
     //show toast when accepted delete
     const accept = async () => {
-        await deleteDoc(doc(db, "source_java", selected.id))
+        await deleteDoc(
+            doc(
+                db,
+                activeIndex ? "source_springboot" : "source_java",
+                selected.id
+            )
+        )
         const newData = data.filter((item) => item.id !== selected.id)
         setData(newData)
         toast.current.show({
@@ -103,6 +112,14 @@ const Admin = () => {
             accept,
         })
     }
+
+    const nextOrder = useMemo(() => {
+        let maxOrder = 0
+        for (let i = 0; i < data?.length; i++) {
+            if (data?.[i].order > maxOrder) maxOrder = data?.[i].order
+        }
+        return maxOrder + 1
+    }, [data])
 
     return (
         <div style={{ margin: "50px" }}>
@@ -174,6 +191,7 @@ const Admin = () => {
                 setOpenModalUpdate={setOpenModalUpdate}
                 data={selected}
                 showUpdateSuccess={showUpdateSuccess}
+                activeIndex={activeIndex}
             />
 
             {/* modal create */}
@@ -181,6 +199,8 @@ const Admin = () => {
                 openModelCreate={openModelCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 showSuccess={showCreateSuccess}
+                activeIndex={activeIndex}
+                nextOrder={nextOrder}
             />
         </div>
     )
