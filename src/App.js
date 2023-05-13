@@ -4,6 +4,7 @@ import "primereact/resources/primereact.min.css"
 import Home from "./component/page/Home"
 import Admin from "./component/page/Admin"
 import ListLesson from "./component/page/ListLesson"
+import Login from "./component/page/Login"
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route exact path="/" element={<Home />} />
                     <Route path="/java" element={<ListLesson />} />
                     <Route path="/springboot" element={<ListLesson />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />
                 </Routes>
             </Router>

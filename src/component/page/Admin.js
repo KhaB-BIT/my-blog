@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef, useMemo } from "react"
 import { Button } from "primereact/button"
 import { TabView, TabPanel } from "primereact/tabview"
@@ -10,15 +11,21 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 import { Toast } from "primereact/toast"
 import ModalUpdate from "../modal/ModalUpdate"
 import ModalCreate from "../modal/ModalCreate"
+import { useCookies } from "react-cookie"
+import { useNavigate } from "react-router-dom"
+import { getAuth, signOut } from "firebase/auth"
 
 const Admin = () => {
     const [data, setData] = useState()
+    const navigate = useNavigate()
     const [openModelUpdate, setOpenModalUpdate] = useState(false)
     const [openModelCreate, setOpenModalCreate] = useState(false)
     const [loading, setLoading] = useState(false)
     const [activeIndex, setActiveIndex] = useState(0) // 0: source_javap; 1: source_springboot
     const [selected, setSelected] = useState()
     const toast = useRef(null)
+    const [cookies, removeCookie] = useCookies(["email", "accessToken"])
+    const auth = getAuth()
 
     //get data from firebase
     useEffect(() => {
@@ -121,16 +128,34 @@ const Admin = () => {
         return maxOrder + 1
     }, [data])
 
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                console.log("Sign-out successful")
+                removeCookie("email")
+                removeCookie("accessToken")
+                // navigate("/login")
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        if (
+            !cookies.hasOwnProperty("email") ||
+            !cookies.hasOwnProperty("accessToken") ||
+            cookies.email === "undefined" ||
+            cookies.accessToken === "undefined"
+        ) {
+            navigate("/login")
+        }
+    }, [cookies])
+
     return (
         <div style={{ margin: "50px" }}>
-            <h1>This is Admin page</h1>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    paddingRight: "10px",
-                }}
-            >
+            <h1 className="text-2xl font-bold">Hello, {cookies.email}</h1>
+            <div className="flex justify-end gap-3">
                 <Button
                     label="Add"
                     severity="success"
@@ -146,7 +171,6 @@ const Admin = () => {
                     onClick={() => {
                         setOpenModalUpdate(true)
                     }}
-                    style={{ margin: "0 10px" }}
                     disabled={selected ? false : true}
                 />
                 <Button
@@ -155,6 +179,12 @@ const Admin = () => {
                     size="small"
                     disabled={selected ? false : true}
                     onClick={confirm}
+                />
+                <Button
+                    label="Sign out"
+                    severity="help"
+                    size="small"
+                    onClick={handleSignOut}
                 />
             </div>
             <TabView
