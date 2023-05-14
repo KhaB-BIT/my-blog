@@ -33,7 +33,7 @@ const HeaderLesson = ({ location }) => {
                     </div>
                     <div className="rounded-lg overflow-hidden">
                         <img
-                            src="https://miro.medium.com/v2/resize:fit:900/0*t61rpXrvkpesX_8U.jpg"
+                            src="https://tvd12.com/wp-content/uploads/springboot.jpeg"
                             alt="Springboot"
                             className="max-w-[400px]"
                         />
