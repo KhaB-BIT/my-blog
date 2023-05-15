@@ -1,12 +1,22 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
 const HeaderLesson = ({ location }) => {
+    const navigate = useNavigate()
     return (
         <>
             {location.pathname === "/java" ? (
                 <div className="flex">
                     <div>
-                        <h1 className="text-3xl font-bold mb-3">Java Basic</h1>
+                        <h1 className="text-3xl font-bold mb-3">
+                            Java Basic{" "}
+                            <span
+                                className="cursor-pointer"
+                                onClick={() => navigate("/")}
+                            >
+                                🏠
+                            </span>
+                        </h1>
                         <p>
                             Một ngôn ngữ mạnh mẽ lâu đời và khó bị thay thế.
                             Code 1 lần chạy mọi nơi!
@@ -24,7 +34,13 @@ const HeaderLesson = ({ location }) => {
                 <div className="flex">
                     <div>
                         <h1 className="text-3xl font-bold mb-3">
-                            Springboot Basic
+                            Springboot Basic{" "}
+                            <span
+                                className="cursor-pointer"
+                                onClick={() => navigate("/")}
+                            >
+                                🏠
+                            </span>
                         </h1>
                         <p>
                             Một framework mạnh mẽ mà bất kì Java Developer nào

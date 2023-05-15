@@ -3,10 +3,15 @@ import { NavLink } from "react-router-dom"
 import NavBar from "./NavBar"
 import AboutBlog from "./AboutBlog"
 import Footer from "./Footer"
+import JavaImg from "../images/java.png"
+import SpringbootImg from "../images/springboot.jpg"
+import OtherImg from "../images/other.png"
+import Snow from "./Snow"
 
 const Home = () => {
     return (
         <div>
+            <Snow />
             <NavBar />
 
             <div className="w-[60vw] m-auto">
@@ -15,7 +20,7 @@ const Home = () => {
                     <NavLink to="/java">
                         <div className="group flex flex-col m-3 rounded-lg overflow-hidden shadow-lg shadow-indigo-500/40 cursor-pointer hover:opacity-90">
                             <img
-                                src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230305131111/Java-programming.png"
+                                src={JavaImg}
                                 alt="Java"
                                 className="w-[260px] h-[150px] object-cover hover:scale-110 transition-all duration-300 ease-linear"
                             />
@@ -26,7 +31,7 @@ const Home = () => {
                     <NavLink to="/springboot">
                         <div className="flex flex-col m-3 rounded-lg overflow-hidden shadow-lg shadow-indigo-500/40 cursor-pointer hover:opacity-90">
                             <img
-                                src="https://tvd12.com/wp-content/uploads/springboot.jpeg"
+                                src={SpringbootImg}
                                 alt="Springboot"
                                 className="w-[260px] h-[150px] object-cover hover:scale-110 transition-all duration-300 ease-linear"
                             />
@@ -37,8 +42,8 @@ const Home = () => {
                     <NavLink to="/">
                         <div className="flex flex-col m-3 rounded-lg overflow-hidden shadow-lg shadow-indigo-500/40 hover:opacity-90">
                             <img
-                                src="https://tienganhfree.com/wp-content/uploads/2019/12/Other-v%C3%A0-Another.png"
-                                alt="Springboot"
+                                src={OtherImg}
+                                alt="OtherImg"
                                 className="w-[260px] h-[150px] object-cover hover:scale-110 transition-all duration-300 ease-linear"
                             />
                             <div className="text-lg p-2">
@@ -49,7 +54,7 @@ const Home = () => {
                 </div>
             </div>
 
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

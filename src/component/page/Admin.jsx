@@ -134,7 +134,6 @@ const Admin = () => {
                 console.log("Sign-out successful")
                 removeCookie("email")
                 removeCookie("accessToken")
-                // navigate("/login")
             })
             .catch((error) => {
                 console.log(error)
@@ -154,7 +153,12 @@ const Admin = () => {
 
     return (
         <div style={{ margin: "50px" }}>
-            <h1 className="text-2xl font-bold">Hello, {cookies.email}</h1>
+            <h1 className="text-2xl font-bold">
+                Hello, {cookies.email}{" "}
+                <span className="cursor-pointer" onClick={() => navigate("/")}>
+                    🏠
+                </span>
+            </h1>
             <div className="flex justify-end gap-3">
                 <Button
                     label="Add"
@@ -166,7 +170,7 @@ const Admin = () => {
                 />
                 <Button
                     label="Update"
-                    severity="warning"
+                    severity={selected ? "warning" : "secondary"}
                     size="small"
                     onClick={() => {
                         setOpenModalUpdate(true)
@@ -175,7 +179,7 @@ const Admin = () => {
                 />
                 <Button
                     label="Delete"
-                    severity="danger"
+                    severity={selected ? "danger" : "secondary"}
                     size="small"
                     disabled={selected ? false : true}
                     onClick={confirm}
@@ -193,6 +197,7 @@ const Admin = () => {
             >
                 <TabPanel header="Java"></TabPanel>
                 <TabPanel header="Springboot"></TabPanel>
+                {/* <TabPanel header="Other"></TabPanel> */}
             </TabView>
             {loading ? (
                 <Skeleton width="100%" height="300px"></Skeleton>
@@ -212,7 +217,7 @@ const Admin = () => {
             )}
 
             {/* confirm delete */}
-            <Toast ref={toast} />
+            <Toast ref={toast} position="bottom-right" />
             <ConfirmDialog />
 
             {/* modal update */}
