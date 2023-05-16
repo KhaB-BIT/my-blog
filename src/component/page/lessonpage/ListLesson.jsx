@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
-import { db } from "../../firebase_setup/firebase"
+import { useLocation, useNavigate } from "react-router-dom"
+import { db } from "../../../firebase_setup/firebase"
 import { collection, getDocs } from "firebase/firestore"
-import ModalContent from "../modal/ModalContent"
 import { Skeleton } from "primereact/skeleton"
 import HeaderLesson from "./HeaderLesson"
 
 const ListLesson = () => {
     const location = useLocation()
     const [data, setData] = useState()
-    const [detailContent, setDetailContent] = useState()
-    const [visible, setVisible] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,11 +33,6 @@ const ListLesson = () => {
         fetchData()
     }, [location])
 
-    const openDialog = (item) => {
-        setDetailContent(item)
-        setVisible(true)
-    }
-
     return (
         <div className="p-9 w-[900px] mt-10 m-auto shadow-lg">
             <HeaderLesson location={location} />
@@ -50,7 +43,7 @@ const ListLesson = () => {
                         <div
                             key={item.id}
                             className="my-4 cursor-pointer"
-                            onClick={() => openDialog(item)}
+                            onClick={() => navigate(`/java/${item.id}`)}
                         >
                             <p className="text-lg hover:underline">
                                 {item.title}
@@ -67,12 +60,6 @@ const ListLesson = () => {
                     <Skeleton height="2rem" className="my-3"></Skeleton>
                 </>
             )}
-
-            <ModalContent
-                visible={visible}
-                setVisible={setVisible}
-                detailContent={detailContent}
-            />
         </div>
     )
 }

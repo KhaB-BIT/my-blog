@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom"
 import NavBar from "./NavBar"
 import AboutBlog from "./AboutBlog"
 import Footer from "./Footer"
-import JavaImg from "../images/java.png"
-import SpringbootImg from "../images/springboot.jpg"
-import OtherImg from "../images/other.png"
+import JavaImg from "../../images/java.png"
+import SpringbootImg from "../../images/springboot.jpg"
+import OtherImg from "../../images/other.png"
 import Snow from "./Snow"
 
 const Home = () => {
@@ -54,7 +54,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* <Footer /> */}
+            <Footer />
         </div>
     )
 }

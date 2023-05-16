@@ -1,5 +1,5 @@
 import React from "react"
-import Tree from "../images/tree.webp"
+import Tree from "../../images/tree.webp"
 import { useNavigate } from "react-router-dom"
 
 const AboutBlog = () => {

@@ -15,7 +15,7 @@ code {
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .ql-syntax {
@@ -36,6 +36,12 @@ h2 {
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.scroll-to-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @-webkit-keyframes snowflakes-fall {
