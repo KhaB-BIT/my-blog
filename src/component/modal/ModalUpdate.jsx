@@ -1,4 +1,3 @@
-// import { doc, updateDoc } from "firebase/firestore"
 import { Button } from "primereact/button"
 import { Dialog } from "primereact/dialog"
 import { Editor } from "primereact/editor"
@@ -18,11 +17,13 @@ const ModalUpdate = ({
     const [titleUpdate, setTitleUpdate] = useState(data?.title)
     const [contentUpdate, setContentUpdate] = useState(data?.content)
     const [orderUpdate, setOrderUpdate] = useState(data?.order)
+    const [urlUpdate, setUrlUpdate] = useState(data?.url)
 
     useEffect(() => {
         setTitleUpdate(data?.title)
         setContentUpdate(data?.content)
         setOrderUpdate(data?.order)
+        setUrlUpdate(data?.url)
     }, [data])
 
     const footerContent = (
@@ -54,7 +55,10 @@ const ModalUpdate = ({
             title: titleUpdate,
             content: contentUpdate,
             order: orderUpdate,
+            url: urlUpdate,
         }
+
+        console.log(lesson)
 
         updateDoc(docRef, lesson)
             .then((docRef) => {
@@ -75,26 +79,40 @@ const ModalUpdate = ({
                 onHide={() => setOpenModalUpdate(false)}
                 footer={footerContent}
             >
+                <div className="flex justify-between mb-[10px]">
+                    <InputText
+                        value={titleUpdate}
+                        type="text"
+                        className="p-inputtext-sm"
+                        placeholder="Enter title for lesson"
+                        style={{
+                            width: "84%",
+                            marginRight: "10px",
+                        }}
+                        onChange={(e) => setTitleUpdate(e.target.value)}
+                    />
+                    <InputNumber
+                        inputId="minmax"
+                        className="p-inputtext-sm"
+                        value={orderUpdate}
+                        onValueChange={(e) => setOrderUpdate(e.target.value)}
+                        min={0}
+                        max={100}
+                        placeholder="Enter order"
+                        width="20%"
+                    />
+                </div>
                 <InputText
-                    value={titleUpdate}
+                    value={urlUpdate}
                     type="text"
                     className="p-inputtext-sm"
-                    placeholder="Enter title for lesson"
+                    placeholder="Enter Url for lesson"
                     style={{
-                        width: "80%",
+                        width: "100%",
                         marginBottom: "10px",
                         marginRight: "10px",
                     }}
-                    onChange={(e) => setTitleUpdate(e.target.value)}
-                />
-                <InputNumber
-                    inputId="minmax"
-                    className="p-inputtext-sm"
-                    value={orderUpdate}
-                    onValueChange={(e) => setOrderUpdate(e.target.value)}
-                    min={0}
-                    max={100}
-                    placeholder="Enter order"
+                    onChange={(e) => setUrlUpdate(e.target.value)}
                 />
                 <Editor
                     value={contentUpdate}

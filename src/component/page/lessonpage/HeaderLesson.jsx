@@ -1,5 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import JavaImg from "../../images/java.webp"
+import SpringbootImg from "../../images/springboot.webp"
 
 const HeaderLesson = ({ location }) => {
     const navigate = useNavigate()
@@ -24,7 +26,7 @@ const HeaderLesson = ({ location }) => {
                     </div>
                     <div className="rounded-lg overflow-hidden">
                         <img
-                            src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230305131111/Java-programming.png"
+                            src={JavaImg}
                             alt="java"
                             className="max-w-[400px]"
                         />
@@ -49,7 +51,7 @@ const HeaderLesson = ({ location }) => {
                     </div>
                     <div className="rounded-lg overflow-hidden">
                         <img
-                            src="https://tvd12.com/wp-content/uploads/springboot.jpeg"
+                            src={SpringbootImg}
                             alt="Springboot"
                             className="max-w-[400px]"
                         />

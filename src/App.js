@@ -6,6 +6,8 @@ import Login from "./component/page/loginpage/Login"
 import Admin from "./component/page/adminpage/Admin"
 import LessonDetail from "./component/page/detailpage/LessonDetail"
 import ListLesson from "./component/page/lessonpage/ListLesson"
+import NotFoundPage from "./component/page/notfoundpage/NotFoundPage"
+
 function App() {
     return (
         <div className="App">
@@ -17,6 +19,7 @@ function App() {
                     <Route path="/springboot" element={<ListLesson />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </Router>
         </div>

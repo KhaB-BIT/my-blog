@@ -26,6 +26,7 @@ const Admin = () => {
     const toast = useRef(null)
     const [cookies, removeCookie] = useCookies(["email", "accessToken"])
     const auth = getAuth()
+    console.log("selected", selected)
 
     //get data from firebase
     useEffect(() => {
@@ -95,6 +96,7 @@ const Admin = () => {
                 newItem.title = lesson.title
                 newItem.content = lesson.content
                 newItem.order = lesson.order
+                newItem.url = lesson.url
                 return newItem
             }
             return item
@@ -210,8 +212,9 @@ const Admin = () => {
                     dataKey="id"
                     tableStyle={{ minWidth: "50rem" }}
                 >
-                    <Column field="id" header="Id"></Column>
+                    <Column field="id" header="Doc ID"></Column>
                     <Column field="order" header="Order"></Column>
+                    <Column field="url" header="URL"></Column>
                     <Column field="title" header="Title"></Column>
                 </DataTable>
             )}

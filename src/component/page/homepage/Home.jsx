@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom"
 import NavBar from "./NavBar"
 import AboutBlog from "./AboutBlog"
 import Footer from "./Footer"
-import JavaImg from "../../images/java.png"
-import SpringbootImg from "../../images/springboot.jpg"
-import OtherImg from "../../images/other.png"
+import JavaImg from "../../images/java.webp"
+import SpringbootImg from "../../images/springboot.webp"
+import OtherImg from "../../images/other.webp"
 import Snow from "./Snow"
 
 const Home = () => {
