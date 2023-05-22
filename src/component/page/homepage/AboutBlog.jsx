@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 const AboutBlog = () => {
     const navigate = useNavigate()
     return (
-        <div className="flex my-7">
+        <div className="flex flex-col lg:flex-row my-7 justify-center items-center">
             <div>
                 <h1 className="text-4xl font-bold">Câu chuyện là...</h1>
                 <p className="mt-5">
@@ -24,7 +24,7 @@ const AboutBlog = () => {
                 src={Tree}
                 alt="abc"
                 width="300px"
-                className="cursor-pointer"
+                className="cursor-pointer mt-2"
                 onDoubleClick={() => navigate("/login")}
             />
         </div>

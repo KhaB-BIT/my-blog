@@ -154,14 +154,14 @@ const Admin = () => {
     }, [cookies])
 
     return (
-        <div style={{ margin: "50px" }}>
+        <div className="m-3 lg:m-[50px]">
             <h1 className="text-2xl font-bold">
                 Hello, {cookies.email}{" "}
                 <span className="cursor-pointer" onClick={() => navigate("/")}>
                     🏠
                 </span>
             </h1>
-            <div className="flex justify-end gap-3">
+            <div className="flex justify-end gap-3 mt-2 h-[35px] lg:h-auto">
                 <Button
                     label="Add"
                     severity="success"

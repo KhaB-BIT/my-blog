@@ -48,14 +48,14 @@ const LessonDetail = () => {
     return (
         <div>
             {flag === true ? (
-                <div className="w-[60vw] m-auto py-10 relative">
+                <div className="w-full lg:w-[60vw] px-[20px] m-auto py-10 relative">
                     <h1 className="text-2xl mb-3 font-bold text-orange-600">
                         {detail?.title}
                     </h1>
                     <div>{parse(detail?.content || "")}</div>
                     <ScrollToTop smooth />
                     <div
-                        className="fixed top-[40px] left-[40px] bg-white drop-shadow-xl p-1 rounded-lg cursor-pointer"
+                        className="fixed top-1 left-1 sm:top-[40px] sm:left-[40px] bg-white drop-shadow-xl p-1 rounded-lg cursor-pointer opacity-70 lg:opacity-100"
                         onClick={() => navigate(-1)}
                     >
                         <svg
@@ -69,8 +69,10 @@ const LessonDetail = () => {
                         </svg>
                     </div>
                 </div>
-            ) : (
+            ) : flag !== 1 ? (
                 <NotFoundPage />
+            ) : (
+                ""
             )}
         </div>
     )

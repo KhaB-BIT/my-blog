@@ -14,7 +14,7 @@ const Home = () => {
             <Snow />
             <NavBar />
 
-            <div className="w-[60vw] m-auto">
+            <div className="w-full lg:w-[60vw] px-[15px] m-auto">
                 <AboutBlog />
                 <div className="flex flex-wrap justify-around">
                     <NavLink to="/java">

@@ -35,12 +35,10 @@ const ListLesson = () => {
         fetchData()
     }, [location])
 
-    console.log("data", data)
-
     return (
-        <div className="p-9 w-[900px] mt-10 m-auto shadow-lg">
+        <div className="p-9 w-full lg:w-[900px] px-[15px] mt-10 m-auto shadow-lg">
             <HeaderLesson location={location} />
-            <div className="text-lg font-bold">💡Bài học</div>
+            <div className="text-lg font-bold mt-3">💡Bài học</div>
             {data ? (
                 data?.map((item) => {
                     return (

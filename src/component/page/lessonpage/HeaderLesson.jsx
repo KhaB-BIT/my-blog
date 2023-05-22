@@ -8,7 +8,7 @@ const HeaderLesson = ({ location }) => {
     return (
         <>
             {location.pathname === "/java" ? (
-                <div className="flex">
+                <div className="flex flex-col lg:flex-row justify-center items-center">
                     <div>
                         <h1 className="text-3xl font-bold mb-3">
                             Java Basic{" "}
@@ -28,12 +28,12 @@ const HeaderLesson = ({ location }) => {
                         <img
                             src={JavaImg}
                             alt="java"
-                            className="max-w-[400px]"
+                            className="max-w-[400px] rounded-lg mt-2"
                         />
                     </div>
                 </div>
             ) : (
-                <div className="flex">
+                <div className="flex flex-col lg:flex-row justify-center items-center">
                     <div>
                         <h1 className="text-3xl font-bold mb-3">
                             Springboot Basic{" "}
@@ -52,8 +52,8 @@ const HeaderLesson = ({ location }) => {
                     <div className="rounded-lg overflow-hidden">
                         <img
                             src={SpringbootImg}
-                            alt="Springboot"
-                            className="max-w-[400px]"
+                            alt="java"
+                            className="max-w-[400px] rounded-lg mt-2"
                         />
                     </div>
                 </div>

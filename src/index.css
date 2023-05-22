@@ -18,6 +18,11 @@ h2 {
     font-size: 22px;
 }
 
+ul {
+    list-style: inside;
+    margin-left: 10px;
+}
+
 .ql-syntax {
     background: rgb(239, 239, 239);
     padding: 20px;
