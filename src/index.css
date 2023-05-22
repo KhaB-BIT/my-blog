@@ -28,6 +28,10 @@ ul {
     justify-content: center;
 }
 
+.ql-align-center img {
+    max-height: 300px;
+}
+
 .ql-syntax {
     background: rgb(239, 239, 239);
     padding: 20px;
