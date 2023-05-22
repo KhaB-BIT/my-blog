@@ -23,6 +23,11 @@ ul {
     margin-left: 10px;
 }
 
+.ql-align-center {
+    display: flex;
+    justify-content: center;
+}
+
 .ql-syntax {
     background: rgb(239, 239, 239);
     padding: 20px;
