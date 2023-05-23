@@ -16,6 +16,7 @@ function App() {
                     <Route exact path="/" element={<Home />} />
                     <Route path="/java" element={<ListLesson />} />
                     <Route path="/java/:id" element={<LessonDetail />} />
+                    <Route path="/springboot/:id" element={<LessonDetail />} />
                     <Route path="/springboot" element={<ListLesson />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />

@@ -10,6 +10,14 @@ const ListLesson = () => {
     const [data, setData] = useState()
     const navigate = useNavigate()
 
+    const handleNavigate = (url) => {
+        if (location.pathname === "/java") {
+            navigate(`/java/${url}`)
+        } else {
+            navigate(`/springboot/${url}`)
+        }
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             await getDocs(
@@ -45,7 +53,7 @@ const ListLesson = () => {
                         <div
                             key={item.id}
                             className="my-4 cursor-pointer"
-                            onClick={() => navigate(`/java/${item.url}`)}
+                            onClick={() => handleNavigate(item.url)}
                         >
                             <p className="text-lg hover:underline">
                                 {item.title}
