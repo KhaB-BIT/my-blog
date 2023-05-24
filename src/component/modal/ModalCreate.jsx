@@ -6,6 +6,7 @@ import { InputNumber } from "primereact/inputnumber"
 import React, { useEffect, useState } from "react"
 import { addDoc, collection } from "firebase/firestore"
 import { db } from "../../firebase_setup/firebase"
+import { InputSwitch } from "primereact/inputswitch"
 
 const ModalCreate = ({
     openModelCreate,
@@ -17,6 +18,8 @@ const ModalCreate = ({
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [order, setOrder] = useState(nextOrder)
+    const [url, setUrl] = useState("")
+    const [checked, setChecked] = useState(false)
 
     useEffect(() => {
         setTitle("")
@@ -47,6 +50,7 @@ const ModalCreate = ({
                 title,
                 content,
                 order,
+                public: checked,
             }
             const docRef = await addDoc(
                 collection(
@@ -65,6 +69,7 @@ const ModalCreate = ({
         setOpenModalCreate(false)
         addTodo()
     }
+
     return (
         <Dialog
             header="Create lesson"
@@ -76,24 +81,37 @@ const ModalCreate = ({
             <InputText
                 value={title}
                 type="text"
-                className="p-inputtext-sm"
+                className="p-inputtext-sm w-full !mb-[10px]"
                 placeholder="Enter title for lesson"
-                style={{
-                    width: "80%",
-                    marginBottom: "10px",
-                    marginRight: "10px",
-                }}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            <InputNumber
-                inputId="minmax"
-                className="p-inputtext-sm"
-                value={order}
-                onValueChange={(e) => setOrder(e.target.value)}
-                min={0}
-                max={100}
-                placeholder="Enter order"
-            />
+            <div className="flex gap-4 items-center mb-[10px]">
+                <InputText
+                    value={url}
+                    type="text"
+                    className="p-inputtext-sm flex-1"
+                    placeholder="Enter Url for lesson"
+                    onChange={(e) => setUrl(e.target.value)}
+                />
+                <InputNumber
+                    inputId="minmax"
+                    className="p-inputtext-sm"
+                    value={order}
+                    onValueChange={(e) => setOrder(e.target.value)}
+                    min={0}
+                    max={100}
+                    placeholder="Enter order"
+                />
+
+                <div>
+                    <p>Public</p>
+                    <InputSwitch
+                        checked={checked}
+                        onChange={(e) => setChecked(e.value)}
+                    />
+                </div>
+            </div>
+
             <Editor
                 value={content}
                 onTextChange={(e) => {

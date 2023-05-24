@@ -6,6 +6,7 @@ import { InputText } from "primereact/inputtext"
 import React, { useEffect, useState } from "react"
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "../../firebase_setup/firebase"
+import { InputSwitch } from "primereact/inputswitch"
 
 const ModalUpdate = ({
     openModelUpdate,
@@ -18,12 +19,14 @@ const ModalUpdate = ({
     const [contentUpdate, setContentUpdate] = useState(data?.content)
     const [orderUpdate, setOrderUpdate] = useState(data?.order)
     const [urlUpdate, setUrlUpdate] = useState(data?.url)
+    const [checkedUpdate, setCheckedUpdate] = useState(data?.public ?? false)
 
     useEffect(() => {
         setTitleUpdate(data?.title)
         setContentUpdate(data?.content)
         setOrderUpdate(data?.order)
         setUrlUpdate(data?.url)
+        setCheckedUpdate(data?.public ?? false)
     }, [data])
 
     const footerContent = (
@@ -56,9 +59,8 @@ const ModalUpdate = ({
             content: contentUpdate,
             order: orderUpdate,
             url: urlUpdate,
+            public: checkedUpdate,
         }
-
-        console.log(lesson)
 
         updateDoc(docRef, lesson)
             .then((docRef) => {
@@ -79,17 +81,20 @@ const ModalUpdate = ({
                 onHide={() => setOpenModalUpdate(false)}
                 footer={footerContent}
             >
-                <div className="flex justify-between mb-[10px]">
+                <InputText
+                    value={titleUpdate}
+                    type="text"
+                    className="p-inputtext-sm w-full !mb-[10px]"
+                    placeholder="Enter title for lesson"
+                    onChange={(e) => setTitleUpdate(e.target.value)}
+                />
+                <div className="flex gap-4 items-center mb-[10px]">
                     <InputText
-                        value={titleUpdate}
+                        value={urlUpdate}
                         type="text"
-                        className="p-inputtext-sm"
-                        placeholder="Enter title for lesson"
-                        style={{
-                            width: "84%",
-                            marginRight: "10px",
-                        }}
-                        onChange={(e) => setTitleUpdate(e.target.value)}
+                        className="p-inputtext-sm flex-1"
+                        placeholder="Enter Url for lesson"
+                        onChange={(e) => setUrlUpdate(e.target.value)}
                     />
                     <InputNumber
                         inputId="minmax"
@@ -99,21 +104,16 @@ const ModalUpdate = ({
                         min={0}
                         max={100}
                         placeholder="Enter order"
-                        width="20%"
                     />
+
+                    <div>
+                        <p>Public</p>
+                        <InputSwitch
+                            checked={checkedUpdate}
+                            onChange={(e) => setCheckedUpdate(e.value)}
+                        />
+                    </div>
                 </div>
-                <InputText
-                    value={urlUpdate}
-                    type="text"
-                    className="p-inputtext-sm"
-                    placeholder="Enter Url for lesson"
-                    style={{
-                        width: "100%",
-                        marginBottom: "10px",
-                        marginRight: "10px",
-                    }}
-                    onChange={(e) => setUrlUpdate(e.target.value)}
-                />
                 <Editor
                     value={contentUpdate}
                     onTextChange={(e) => setContentUpdate(e.htmlValue)}

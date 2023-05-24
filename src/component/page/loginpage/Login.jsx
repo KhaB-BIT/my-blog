@@ -49,7 +49,7 @@ export default function Login() {
     }, [cookies])
 
     return (
-        <div className="w-full h-[100vh] flex justify-center items-center ">
+        <div className="w-full h-[100vh] flex justify-center items-center bg-gradient-to-r from-cyan-500 to-blue-500">
             <form
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-2 w-[400px] bg-white p-8 rounded-xl drop-shadow-2xl"

@@ -48,19 +48,21 @@ const ListLesson = () => {
             <HeaderLesson location={location} />
             <div className="text-lg font-bold mt-3">💡Bài học</div>
             {data ? (
-                data?.map((item) => {
-                    return (
-                        <div
-                            key={item.id}
-                            className="my-4 cursor-pointer"
-                            onClick={() => handleNavigate(item.url)}
-                        >
-                            <p className="text-lg hover:underline">
-                                {item.title}
-                            </p>
-                        </div>
-                    )
-                })
+                data
+                    ?.filter((item) => item?.public === true)
+                    .map((item) => {
+                        return (
+                            <div
+                                key={item.id}
+                                className="my-4 cursor-pointer"
+                                onClick={() => handleNavigate(item.url)}
+                            >
+                                <p className="text-lg hover:underline">
+                                    {item.title}
+                                </p>
+                            </div>
+                        )
+                    })
             ) : (
                 <>
                     <Skeleton height="2rem" className="my-3"></Skeleton>

@@ -26,8 +26,6 @@ const Admin = () => {
     const toast = useRef(null)
     const [cookies, removeCookie] = useCookies(["email", "accessToken"])
     const auth = getAuth()
-    console.log("selected", selected)
-
     //get data from firebase
     useEffect(() => {
         setLoading(true)
@@ -97,6 +95,7 @@ const Admin = () => {
                 newItem.content = lesson.content
                 newItem.order = lesson.order
                 newItem.url = lesson.url
+                newItem.public = lesson.public
                 return newItem
             }
             return item
@@ -142,6 +141,10 @@ const Admin = () => {
             })
     }
 
+    const publicBodyTemplate = (item) => {
+        return <span>{item.public ? "🌏" : "🔒"}</span>
+    }
+
     useEffect(() => {
         if (
             !cookies.hasOwnProperty("email") ||
@@ -154,7 +157,7 @@ const Admin = () => {
     }, [cookies])
 
     return (
-        <div className="m-3 lg:m-[50px]">
+        <div className="p-3 lg:m-[50px] ">
             <h1 className="text-2xl font-bold">
                 Hello, {cookies.email}{" "}
                 <span className="cursor-pointer" onClick={() => navigate("/")}>
@@ -216,6 +219,7 @@ const Admin = () => {
                     <Column field="order" header="Order"></Column>
                     <Column field="url" header="URL"></Column>
                     <Column field="title" header="Title"></Column>
+                    <Column body={publicBodyTemplate} header="Public"></Column>
                 </DataTable>
             )}
 
