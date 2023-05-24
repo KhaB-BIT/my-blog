@@ -35,6 +35,8 @@ ul {
 .ql-syntax {
     background: rgb(239, 239, 239);
     padding: 20px;
+    overflow-x: scroll;
+    max-width: 100vw;
 }
 
 .dialog-readonly ul {
