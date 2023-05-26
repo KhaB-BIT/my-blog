@@ -50,6 +50,7 @@ const ModalCreate = ({
                 title,
                 content,
                 order,
+                url,
                 public: checked,
             }
             const docRef = await addDoc(

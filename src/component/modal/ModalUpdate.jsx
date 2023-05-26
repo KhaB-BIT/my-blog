@@ -77,6 +77,7 @@ const ModalUpdate = ({
             <Dialog
                 header="Update lesson"
                 visible={openModelUpdate}
+                maximizable
                 style={{ width: "80vw" }}
                 onHide={() => setOpenModalUpdate(false)}
                 footer={footerContent}
