@@ -39,9 +39,9 @@ const Home = () => {
             <div className="w-full lg:w-[60vw] px-[15px] m-auto">
                 <AboutBlog />
                 <div className="flex flex-wrap justify-around">
-                    {sources.map((item) => {
+                    {sources.map((item, index) => {
                         return (
-                            <NavLink to={item.url}>
+                            <NavLink to={item.url} key={index}>
                                 <div className="group flex flex-col m-3 rounded-lg overflow-hidden shadow-lg shadow-indigo-500/40 cursor-pointer hover:opacity-90">
                                     <img
                                         src={item.src}

@@ -23,6 +23,23 @@ ul {
     margin-left: 10px;
 }
 
+.special-link {
+    display: inline;
+    padding-bottom: 0px;
+    background: linear-gradient(to right, gray 0%, gray 100%);
+    background-size: 0px 6%;
+    background-repeat: no-repeat;
+    background-position: left 100%;
+    transition-duration: 0.5s;
+    font-weight: inherit;
+    padding: 0;
+}
+
+.special-link:hover {
+    background-size: 100% 6%;
+    background-position: right 100%;
+}
+
 .ql-align-center {
     display: flex;
     justify-content: center;

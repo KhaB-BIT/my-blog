@@ -57,7 +57,7 @@ const ListLesson = () => {
                                 className="my-4 cursor-pointer"
                                 onClick={() => handleNavigate(item.url)}
                             >
-                                <p className="text-lg hover:underline">
+                                <p className="text-lg special-link">
                                     {item.title}
                                 </p>
                             </div>
