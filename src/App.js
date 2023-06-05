@@ -7,6 +7,7 @@ import Admin from "./component/page/adminpage/Admin"
 import LessonDetail from "./component/page/detailpage/LessonDetail"
 import ListLesson from "./component/page/lessonpage/ListLesson"
 import NotFoundPage from "./component/page/notfoundpage/NotFoundPage"
+import Test from "./component/page/otherpage/Test"
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/springboot" element={<ListLesson />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<Admin />} />
+                    {/* <Route path="/test" element={<Test />} /> */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </Router>

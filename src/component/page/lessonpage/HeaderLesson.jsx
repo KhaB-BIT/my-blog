@@ -24,11 +24,11 @@ const HeaderLesson = ({ location }) => {
                             Code 1 lần chạy mọi nơi!
                         </p>
                     </div>
-                    <div className="rounded-lg overflow-hidden">
+                    <div className="rounded-lg overflow-hidden ml-3">
                         <img
                             src={JavaImg}
                             alt="java"
-                            className="max-w-[400px] rounded-lg mt-2"
+                            className="max-w-[400px] rounded-lg mt-2 lg:m-0"
                         />
                     </div>
                 </div>
@@ -49,11 +49,11 @@ const HeaderLesson = ({ location }) => {
                             cũng phải biết!
                         </p>
                     </div>
-                    <div className="rounded-lg overflow-hidden">
+                    <div className="rounded-lg overflow-hidden ml-3">
                         <img
                             src={SpringbootImg}
                             alt="java"
-                            className="max-w-[400px] rounded-lg mt-2"
+                            className="max-w-[400px] rounded-lg mt-2 lg:m-0"
                         />
                     </div>
                 </div>
