@@ -4,11 +4,14 @@ import { db } from "../../../firebase_setup/firebase"
 import { collection, getDocs } from "firebase/firestore"
 import { Skeleton } from "primereact/skeleton"
 import HeaderLesson from "./HeaderLesson"
+import { useContext } from "react"
+import { MyContext } from "../../../App"
 
 const ListLesson = () => {
     const location = useLocation()
     const [data, setData] = useState()
     const navigate = useNavigate()
+    const { setSource } = useContext(MyContext)
 
     const handleNavigate = (url) => {
         if (location.pathname === "/java") {
@@ -38,9 +41,11 @@ const ListLesson = () => {
                     l1.order > l2.order ? 1 : l1.order < l2.order ? -1 : 0
                 )
                 setData(sortData)
+                setSource(sortData)
             })
         }
         fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
     return (

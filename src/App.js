@@ -7,25 +7,34 @@ import Admin from "./component/page/adminpage/Admin"
 import LessonDetail from "./component/page/detailpage/LessonDetail"
 import ListLesson from "./component/page/lessonpage/ListLesson"
 import NotFoundPage from "./component/page/notfoundpage/NotFoundPage"
-import Test from "./component/page/otherpage/Test"
+import { createContext } from "react"
+import { useState } from "react"
+
+export const MyContext = createContext()
 
 function App() {
+    const [source, setSource] = useState()
+
     return (
-        <div className="App">
-            <Router>
-                <Routes>
-                    <Route exact path="/" element={<Home />} />
-                    <Route path="/java" element={<ListLesson />} />
-                    <Route path="/java/:id" element={<LessonDetail />} />
-                    <Route path="/springboot/:id" element={<LessonDetail />} />
-                    <Route path="/springboot" element={<ListLesson />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/admin" element={<Admin />} />
-                    {/* <Route path="/test" element={<Test />} /> */}
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-            </Router>
-        </div>
+        <MyContext.Provider value={{ source, setSource }}>
+            <div className="App">
+                <Router>
+                    <Routes>
+                        <Route exact path="/" element={<Home />} />
+                        <Route path="/java" element={<ListLesson />} />
+                        <Route path="/java/:id" element={<LessonDetail />} />
+                        <Route
+                            path="/springboot/:id"
+                            element={<LessonDetail />}
+                        />
+                        <Route path="/springboot" element={<ListLesson />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/admin" element={<Admin />} />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                </Router>
+            </div>
+        </MyContext.Provider>
     )
 }
 

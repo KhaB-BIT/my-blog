@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react"
 import parse from "html-react-parser"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -5,45 +6,82 @@ import { collection, getDocs, query, where } from "firebase/firestore"
 import { db } from "../../../firebase_setup/firebase"
 import ScrollToTop from "react-scroll-to-top"
 import NotFoundPage from "../notfoundpage/NotFoundPage"
+import { Button } from "primereact/button"
+import { useContext } from "react"
+import { MyContext } from "../../../App"
 
 const LessonDetail = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const [detail, setDetail] = useState()
     const [flag, setFlag] = useState(1)
+    const { source } = useContext(MyContext)
 
     useEffect(() => {
         const fetchData = async () => {
             const pathName = location?.pathname
-            const q = query(
-                collection(
-                    db,
-                    pathName.includes("java")
-                        ? "source_java"
-                        : "source_springboot"
-                ),
-                where(
-                    "url",
-                    "==",
-                    pathName.substring(pathName.lastIndexOf("/") + 1).toString()
+
+            if (source?.length) {
+                const lesson = source.filter(
+                    (item) =>
+                        item.url ===
+                        pathName
+                            .substring(pathName.lastIndexOf("/") + 1)
+                            .toString()
                 )
-            )
-            try {
-                const querySnapshot = await getDocs(q)
-                setFlag(false)
-                querySnapshot.forEach((doc) => {
-                    setFlag(true)
-                    setDetail({
-                        docId: doc.id,
-                        ...doc.data(),
+                setFlag(true)
+                setDetail(lesson[0])
+            } else {
+                const q = query(
+                    collection(
+                        db,
+                        pathName.includes("java")
+                            ? "source_java"
+                            : "source_springboot"
+                    ),
+                    where(
+                        "url",
+                        "==",
+                        pathName
+                            .substring(pathName.lastIndexOf("/") + 1)
+                            .toString()
+                    )
+                )
+
+                try {
+                    const querySnapshot = await getDocs(q)
+                    setFlag(false)
+                    querySnapshot.forEach((doc) => {
+                        setFlag(true)
+                        setDetail({
+                            docId: doc.id,
+                            ...doc.data(),
+                        })
                     })
-                })
-            } catch (error) {
-                console.log(error)
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
         fetchData()
     }, [location])
+
+    const handleNextLesson = () => {
+        if (source?.length && detail.order < source.length) {
+            const nextLesson = source.filter(
+                (item) => item.order == Number(detail.order) + 1
+            )
+            if (location.pathname.includes("java")) {
+                navigate(`/java/${nextLesson[0].url}`)
+            } else {
+                navigate(`/springboot/${nextLesson[0].url}`)
+            }
+            setTimeout(() => {
+                document.body.scrollTop = 0
+                document.documentElement.scrollTop = 0
+            }, 300)
+        }
+    }
 
     return (
         <div>
@@ -53,6 +91,19 @@ const LessonDetail = () => {
                         {detail?.title}
                     </h1>
                     <div>{parse(detail?.content || "")}</div>
+                    {source?.length && (
+                        <Button
+                            label={
+                                detail?.order == source?.length
+                                    ? "Hết bài để học rồi"
+                                    : "Bài tiếp theo"
+                            }
+                            severity="success"
+                            size="small"
+                            className="float-right !my-3"
+                            onClick={handleNextLesson}
+                        />
+                    )}
                     <ScrollToTop smooth />
                     <div
                         className="fixed top-1 left-1 sm:top-[40px] sm:left-[40px] bg-white drop-shadow-xl p-1 rounded-lg cursor-pointer opacity-70 lg:opacity-100"
